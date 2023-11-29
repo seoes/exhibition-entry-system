@@ -45,3 +45,15 @@ export const deleteEntry = async (req: Request, res: Response) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+export const updateExitStatus = async (req: Request, res: Response) => {
+    try {
+        const entryId = req.params.id;
+        const exitData = req.body;
+        await EntryService.updateExitStatus(entryId, exitData);
+        res.send("Exit status updated");
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+};

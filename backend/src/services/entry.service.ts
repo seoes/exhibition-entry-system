@@ -15,3 +15,10 @@ export const updateEntry = async (entryId: string, entryData: any) => {
 export const deleteEntry = async (entryId: string) => {
     return knex("entry").where({ id: entryId }).del();
 };
+
+export const updateExitStatus = async (entryId: string, exitData: any) => {
+    return knex("entry").where({ id: entryId }).update({
+        exit_status: exitData.exit_status,
+        exit_time: knex.fn.now(),
+    });
+};
