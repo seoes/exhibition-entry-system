@@ -3,8 +3,8 @@ import { EntryService } from "../services";
 
 export const createEntry = async (req: Request, res: Response) => {
     try {
-        const entryData = req.body;
-        await EntryService.createEntry(entryData);
+        const { id } = req.body;
+        await EntryService.createEntry(id);
         res.status(201).send("Entry created");
     } catch (error: any) {
         console.error(error.message);
@@ -25,9 +25,9 @@ export const getEntry = async (req: Request, res: Response) => {
 
 export const updateEntry = async (req: Request, res: Response) => {
     try {
-        const entryId = req.params.id;
-        const entryData = req.body;
-        await EntryService.updateEntry(entryId, entryData);
+        const { id } = req.params;
+        const { entryTime, exitStatus, exitTime } = req.body;
+        await EntryService.updateEntry(id, entryTime, exitStatus, exitTime);
         res.send("Entry updated");
     } catch (error: any) {
         console.error(error.message);

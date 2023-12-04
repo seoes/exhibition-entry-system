@@ -1,13 +1,11 @@
 import { Router } from "express";
 import { TicketController } from "../controllers";
 
-const router = Router();
+export const ticket = Router();
 
-router.post("/ticket/type", TicketController.createTicketType);
-router.get("/ticket/type/:type", TicketController.getTicketType);
-router.post("/ticket", TicketController.createTicket);
-router.get("/ticket/:serialNumber", TicketController.getTicket);
-router.put("/ticket/:serialNumber", TicketController.updateTicket);
-router.delete("/ticket/:serialNumber", TicketController.deleteTicket);
-
-export default router;
+ticket.post("/type", TicketController.createTicketType);
+ticket.get("/type/:type", TicketController.getTicketType);
+ticket.post("/", TicketController.createTicket);
+ticket.get("/:serialNumber", TicketController.getTicket);
+ticket.put("/:serialNumber", TicketController.updateTicket);
+ticket.delete("/:serialNumber", TicketController.deleteTicket);

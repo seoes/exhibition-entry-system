@@ -1,13 +1,9 @@
 import { Router } from "express";
 import { VisitorController } from "../controllers";
 
-export function visitorRoutes(): Router {
-    const router = Router();
+export const visitor = Router();
 
-    router.post("/visitor", VisitorController.createVisitor);
-    router.get("/visitor/:id", VisitorController.getVisitor);
-    router.put("/visitor/:id", VisitorController.updateVisitor);
-    router.delete("/visitor/:id", VisitorController.deleteVisitor);
-
-    return router;
-}
+visitor.post("/", VisitorController.createVisitor);
+visitor.get("/:id", VisitorController.getVisitor);
+visitor.put("/:id", VisitorController.updateVisitor);
+visitor.delete("/:id", VisitorController.deleteVisitor);

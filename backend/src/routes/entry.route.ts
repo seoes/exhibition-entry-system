@@ -1,12 +1,10 @@
 import { Router } from "express";
 import { EntryController } from "../controllers";
 
-const router = Router();
+export const entry = Router();
 
-router.post("/entry", EntryController.createEntry);
-router.get("/entry/:id", EntryController.getEntry);
-router.put("/entry/:id", EntryController.updateEntry);
-router.delete("/entry/:id", EntryController.deleteEntry);
-router.put("/entry/exit/:id", EntryController.updateExitStatus);
-
-export default router;
+entry.post("/", EntryController.createEntry);
+entry.get("/:id", EntryController.getEntry);
+entry.put("/:id", EntryController.updateEntry);
+entry.delete("/:id", EntryController.deleteEntry);
+entry.put("/exit/:id", EntryController.updateExitStatus);
