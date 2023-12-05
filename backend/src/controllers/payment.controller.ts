@@ -4,8 +4,8 @@ import { PaymentService } from "../services";
 export const createPayment = async (req: Request, res: Response) => {
     try {
         const paymentData = req.body;
-        const paymentId = await PaymentService.createPayment(paymentData);
-        res.status(201).json({ paymentId });
+        // const paymentId = await PaymentService.createPayment(paymentData);
+        // res.status(201).json({ paymentId });
     } catch (error: any) {
         if (error instanceof Error) {
             console.error(error.message);

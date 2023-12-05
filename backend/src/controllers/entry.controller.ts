@@ -3,8 +3,7 @@ import { EntryService } from "../services";
 
 export const createEntry = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
-        await EntryService.createEntry(id);
+        await EntryService.createEntry();
         res.status(201).send("Entry created");
     } catch (error: any) {
         console.error(error.message);
@@ -17,6 +16,16 @@ export const getEntry = async (req: Request, res: Response) => {
         const entryId = req.params.id;
         const entry = await EntryService.getEntry(entryId);
         res.json(entry);
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
+export const getAllEntry = async (req: Request, res: Response) => {
+    try {
+        const entryList = await EntryService.getAllEntry();
+        res.status(201).json(entryList);
     } catch (error: any) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -46,14 +55,22 @@ export const deleteEntry = async (req: Request, res: Response) => {
     }
 };
 
-export const updateExitStatus = async (req: Request, res: Response) => {
+export async function visitorEnter(req: Request, res: Response) {
     try {
-        const entryId = req.params.id;
-        const exitData = req.body;
-        await EntryService.updateExitStatus(entryId, exitData);
-        res.send("Exit status updated");
+        const { id } = req.params;
+        await EntryService.visitorEnter(id);
     } catch (error: any) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
-};
+}
+
+export async function visitorExit(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        await EntryService.visitorEnter(id);
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+}

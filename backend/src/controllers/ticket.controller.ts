@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { TicketService } from "../services";
+import { EntryService, PaymentService, TicketService } from "../services";
 
 export const createTicketType = async (req: Request, res: Response) => {
     try {
-        const typeData = req.body;
-        await TicketService.createTicketType(typeData);
+        const { type, price } = req.body;
+        await TicketService.createTicketType(type, price);
         res.status(201).send("Ticket type created");
     } catch (error: any) {
         console.error(error.message);
@@ -25,8 +25,10 @@ export const getTicketType = async (req: Request, res: Response) => {
 
 export const createTicket = async (req: Request, res: Response) => {
     try {
-        const ticketData = req.body;
-        await TicketService.createTicket(ticketData);
+        const { visitorId, cardNumber, type } = req.body;
+        const entryId = await EntryService.createEntry();
+        const ticketSerialNumber = await TicketService.createTicket(entryId, type);
+        await PaymentService.createPayment(visitorId, cardNumber, ticketSerialNumber);
         res.status(201).send("Ticket created");
     } catch (error: any) {
         console.error(error.message);

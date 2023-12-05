@@ -1,8 +1,15 @@
+import { randomUUID } from "crypto";
 import knex from "../db/knex";
 
-export const createPayment = async (paymentData: any) => {
+export const createPayment = async (visitorId: string, cardNumber: string, ticketSerialNumber: string) => {
+    const data = {
+        id: randomUUID(),
+        visitor_id: visitorId,
+        card_number: cardNumber,
+        ticket_serial_number: ticketSerialNumber,
+    };
     return await knex.transaction(async (trx) => {
-        const paymentId = await trx("payment").insert(paymentData).returning("id");
+        const paymentId = await trx("payment").insert(data).returning("id");
         return paymentId;
     });
 };
