@@ -6,7 +6,7 @@ dotenv.config({ path: path.join(__dirname, "../../.env") });
 
 const knexConfig: { [key: string]: Knex.Config } = {
     development: {
-        client: "mysql",
+        client: "mysql2",
         connection: {
             port: parseInt(process.env.MYSQL_DEV_PORT || "5432"),
             user: process.env.MYSQL_DEV_USER,
@@ -20,7 +20,7 @@ const knexConfig: { [key: string]: Knex.Config } = {
         debug: true,
     },
     production: {
-        client: "mysql",
+        client: "mysql2",
         connection: {
             host: process.env.MYSQL_HOST,
             port: parseInt(process.env.MYSQL_PORT || "5432"),
