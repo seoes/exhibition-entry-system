@@ -8,6 +8,7 @@ export const createPayment = async (visitorId: string, cardNumber: string, ticke
         card_number: cardNumber,
         ticket_serial_number: ticketSerialNumber,
     };
+    console.log(visitorId);
     return await knex.transaction(async (trx) => {
         const paymentId = await trx("payment").insert(data).returning("id");
         return paymentId;

@@ -27,6 +27,7 @@ export const createTicket = async (req: Request, res: Response) => {
     try {
         const { visitorId, cardNumber, type } = req.body;
         const entryId = await EntryService.createEntry();
+        console.log(req.body);
         const ticketSerialNumber = await TicketService.createTicket(entryId, type);
         await PaymentService.createPayment(visitorId, cardNumber, ticketSerialNumber);
         res.status(201).send("Ticket created");

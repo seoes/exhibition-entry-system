@@ -4,18 +4,19 @@ import knex from "../db/knex";
 export const createEntry = async () => {
     const data = {
         id: randomUUID(),
-        exitStatus: false,
+        exit_status: false,
+        entry_time: new Date(),
     };
     await knex("entry").insert(data);
     return data.id;
 };
 
 export const getEntry = async (id: string) => {
-    return knex("entry").where({ id }).join("ticket", "ticket_serial_number", "ticket.serial_number").first();
+    return knex("entry").where({ id }).join("ticket", "entry.id", "=", "ticket.entry_id").select("entry.*", "ticket.serial_number", "ticket.type").first();
 };
 
 export const getAllEntry = async () => {
-    return knex("entry").join("ticket", "entry.ticket_serial_number", "ticket.serial_number");
+    return knex("payment").join("visitor", "payment.visitor_id", "=", "visitor.id").join("ticket", "payment.ticket_serial_number", "=", "ticket.serial_number").join("entry", "ticket.entry_id", "=", "entry.id").select("payment.id as payment_id", "visitor.name", "visitor.age", "visitor.gender", "ticket.serial_number as ticket_number", "entry.entry_time", "entry.exit_time", "entry.exit_status");
 };
 
 export const updateEntry = async (id: string, entryTime: Date, exitStatus: boolean, exitTime: Date) => {
